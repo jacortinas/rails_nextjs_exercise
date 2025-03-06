@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  year: 2024
+  month: 1
+  sales_cents: 1_000_000
+  shipping_cents: 100_000
+  tax_cents: 50_000
+  payments_cents: 1_150_000
+
+two:
+  year: 2024
+  month: 2
+  sales_cents: 2_000_000
+  shipping_cents: 150_000
+  tax_cents: 75_000
+  payments_cents: 2_225_000
+
+three:
+  year: 2024
+  month: 3
+  sales_cents: 400_000
+  shipping_cents: 20_000
+  tax_cents: 10_000
+  payments_cents: 43_0000

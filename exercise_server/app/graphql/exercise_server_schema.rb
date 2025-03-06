@@ -18,7 +18,12 @@ class ExerciseServerSchema < GraphQL::Schema
 
   # Union and Interface Resolution
   def self.resolve_type(abstract_type, obj, ctx)
-    raise GraphQL::RequiredImplementationMissingError
+    case obj
+    when JournalEntry
+      Types::JournalEntryType
+    else
+      raise(GraphQL::RequiredImplementationMissingError) 
+    end
   end
 
   # Limit the size of incoming queries:

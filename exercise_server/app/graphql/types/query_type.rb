@@ -17,5 +17,13 @@ module Types
     def nodes(ids:)
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
+
+    field :ledger, Types::LedgerType, null: false
+
+    # In a real case this would be the Ledger for the current user,
+    # or this ledger field would be nested in a `viewer` parent field.
+    def ledger
+      Ledger
+    end
   end
 end

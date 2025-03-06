@@ -14,6 +14,6 @@ namespace :data do
     puts "Data imported successfully"
     puts
 
-    Ledger.journal_entries.each { puts _1.to_s }
+    Ledger.journal_entries.each { puts _1.formatted_output }
   end 
 end

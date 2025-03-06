@@ -83,7 +83,7 @@ class JournalEntry < ApplicationRecord
   end
 
   sig { returns(String) }
-  def to_s
+  def formatted_output
     <<~STRING
       Journal Entry for #{year}-#{month}
       #{"-" * 40}

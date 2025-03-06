@@ -38,7 +38,8 @@ gem "thruster", require: false
 gem "csv"
 gem "money"
 gem "money-rails"
-gem 'sorbet-static-and-runtime'
+gem "sorbet-static-and-runtime", require: "sorbet-runtime"
+gem "graphql"
 
 group "test" do
   gem "mocha"
@@ -54,5 +55,5 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'tapioca', require: false, :group => [:development, :test]
+  gem "tapioca", require: false, :group => [:development, :test]
 end

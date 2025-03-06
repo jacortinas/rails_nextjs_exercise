@@ -4,5 +4,5 @@ calculate the output journal entries. To run this:
 ```
 cd simple
 gem install money
-ruby calculate_ledger.rb ../data.csv
+ruby calculate_ledger.rb data.csv
 ```

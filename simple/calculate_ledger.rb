@@ -90,7 +90,7 @@ class JournalEntry
 
   # Cash expected for orders
   def orders_debit
-    sales + shipping
+    sales
   end
 
   # Cash expected for shipping on orders
@@ -108,13 +108,14 @@ class JournalEntry
     payments_amount
   end
 
+  # Total of all debits
   def total_debit
     orders_debit + shipping_debit + tax_debit + cash_debit
   end
   
   # Revenue for orders
   def orders_credit
-    payments_amount - tax
+    payments_amount - tax - shipping
   end
 
   # Revenue for shipping
@@ -122,14 +123,17 @@ class JournalEntry
     payments_amount - sales - tax
   end
   
+  # Cash to be paid for sales tax
   def tax_credit
     payments_amount - sales - shipping
   end
 
+  # Removal of expectation of cash
   def cash_credit
     sales + shipping + tax
   end
 
+  # Total of all credits
   def total_credit
     orders_credit + shipping_credit + tax_credit + cash_credit
   end

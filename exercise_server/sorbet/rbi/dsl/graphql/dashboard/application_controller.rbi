@@ -13,9 +13,21 @@ class Graphql::Dashboard::ApplicationController
   def helpers; end
 
   module HelperMethods
+    include ::Turbo::DriveHelper
+    include ::Turbo::FramesHelper
+    include ::Turbo::IncludesHelper
+    include ::Turbo::StreamsHelper
+    include ::ActionView::Helpers::CaptureHelper
+    include ::ActionView::Helpers::OutputSafetyHelper
+    include ::ActionView::Helpers::TagHelper
+    include ::Turbo::Streams::ActionHelper
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
+    include ::Importmap::ImportmapTagsHelper
     include ::ActionController::Base::HelperMethods
+    include ::ApplicationHelper
+    include ::Doorkeeper::DashboardHelper
+    include ::DeviseHelper
 
     sig { returns(T.untyped) }
     def schema_class; end

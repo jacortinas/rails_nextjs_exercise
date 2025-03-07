@@ -15,4 +15,9 @@ class ActiveSupport::TestCase
     ).returns(T::Array[JournalEntry])
   end
   def journal_entries(fixture_name = nil, *other_fixtures); end
+
+  sig { params(fixture_name: NilClass, other_fixtures: NilClass).returns(T::Array[User]) }
+  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(User) }
+  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: T.any(String, Symbol)).returns(T::Array[User]) }
+  def users(fixture_name = nil, *other_fixtures); end
 end

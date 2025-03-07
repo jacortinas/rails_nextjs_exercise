@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-class GraphqlController < ApplicationController
-  # If accessing from outside this domain, nullify the session
-  # This allows for outside API access while preventing CSRF attacks,
-  # but you'll have to authenticate your user separately
-  # protect_from_forgery with: :null_session
+class GraphqlController < ActionController::API
+  # This entire API is locked down to authenticated users only.
+  # It's also possible to not lock it down and control object visibility
+  # at the object or field level.
+
+  before_action :doorkeeper_authorize!
 
   def execute
     variables = prepare_variables(params[:variables])
@@ -12,7 +13,7 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_resource_owner,
     }
     result = ExerciseServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -48,5 +49,11 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+  end
+
+  private
+
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 end

@@ -18,6 +18,12 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
+    field :viewer, Types::ViewerType, null: false
+
+    def viewer
+      context[:current_user]
+    end
+
     field :ledger, Types::LedgerType, null: false
 
     # In a real case this would be the Ledger for the current user,

@@ -7,6 +7,7 @@ This is a repository for a demo app containing:
 
 The purpose of the app is to load a CSV of data into the Rails app's database, aggregate the data by month
 and allow that data to be accessed via GraphQL API. Authentication was an extra feature but demonstrates how to use Next.js and Auth.js with Rails, Devise, and Doorkeeper.
+The app was styled with tailwind, it's extremely verbose and I can't say I like it but it worked very well for fast styling.
 
 In order to run the app, you must have a recent version of node installed and Ruby 3.4.2. If you want to use another Ruby version you can, this is just the version I used when building the demo.
 

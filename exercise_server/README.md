@@ -1,24 +1,26 @@
-# README
+# Exercise Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a basic Rails app that is using:
 
-Things you may want to cover:
+- SQLite database
+- SolidQueue gem
+- Devise gem
+- Doorkeeper gem
+- Graphql-Ruby gem
+- Sorbet gem
+- Money gem
 
-* Ruby version
+The importants parts are located in:
 
-* System dependencies
+- `app/models/ledger.rb`
+- `app/models/journal_entry.rb`
+- `app/graphql/*`
 
-* Configuration
+Using Doorkeeper this Rails app serves as an OAuth2 provider for an app named "ledger_api".
+This allows the frontend app to authenticate securely and retrieve an access token and refresh token
+to make authenticated requests without the need to share cookies or the same domain.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The GraphQL API is simple with 2 main top-level fields. `Query.viewer` and `Query.ledger`.
+The `Query.viewer` endpoint returns information about the initiator of the current GraphQL
+request. The `Query.ledger` field contains the `years`, `year` and `entry` fields that allow
+for further querying down the graph to retrieve journal entries for specific months.

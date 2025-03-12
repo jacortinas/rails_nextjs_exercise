@@ -32,3 +32,10 @@ $ script/dev
 
 To run the apps. Navigate to `http://localhost:3001` to view the homepage.
 
+The apps looks like:
+
+![Ledger Root Page](https://github.com/user-attachments/assets/590417b9-3e3f-4f94-845b-111bb62a2150)
+![Sign In Page](https://github.com/user-attachments/assets/d5ef1fba-de94-4623-888f-51404a147a33)
+![Signed In Homepage](https://github.com/user-attachments/assets/518db544-14f3-4ad1-8803-e619f5c566b6)
+![Ledger Page](https://github.com/user-attachments/assets/54029329-c217-4178-93a6-a203c3bbf963)
+![Dropdown Open](https://github.com/user-attachments/assets/9ad765b9-89b9-4938-86c8-fe475a21902b)

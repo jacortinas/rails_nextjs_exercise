@@ -1,4 +1,4 @@
-# Rails + Relay Exercise
+# Rails + GraphQL + Next.js Exercise
 
 This is a repository for a demo app containing:
 

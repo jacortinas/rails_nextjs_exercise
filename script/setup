@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Execute npm install in exercise_frontend
+(cd exercise_frontend && npm install)
+
+# Execute bundle install in exercise_server
+(cd exercise_server && bundle install)
+
+if ! gem list foreman -i --silent; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+(cd exercise_server && bin/rails db:reset data:import)

@@ -1,0 +1,3 @@
+frontend_app: cd exercise_frontend && npm run dev
+backend_web: cd exercise_server && bin/rails server -p 3000
+backend_css: cd exercise_server && bin/rails tailwindcss:watch

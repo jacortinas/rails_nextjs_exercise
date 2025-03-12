@@ -131,6 +131,7 @@ export const sessionCallback: (params: { session: Session, token: JWT }) => Awai
 // NOTE: In a real application, you would need to replace the clientId and clientSecret with your actual credentials,
 // and never include real credentials here in the source code. Auth.js uses environment variables by default for security.
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  secret: "fake-auth-secret",
   providers: [{
     id: "ledger_api",
     name: "The Ledger",
@@ -148,5 +149,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
     jwt: jwtCallback,
     session: sessionCallback,
+    async authorized({ auth }) {
+      return !!auth;
+    }
+  },
+  pages: {
+    signIn: "/"
   }
 });

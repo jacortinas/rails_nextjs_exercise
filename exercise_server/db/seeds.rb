@@ -16,7 +16,7 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 # hardcoded.
 Doorkeeper::Application.find_or_create_by!(
   name: "Exercise Frontend",
-  redirect_uri: "http://localhost:3000/api/auth/callback/ledger_api",
+  redirect_uri: "http://localhost:3001/api/auth/callback/ledger_api",
   uid: "ledger-client-id",
   secret: "ledger-client-secret",
   scopes: [:read, :write]

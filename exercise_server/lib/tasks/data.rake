@@ -12,8 +12,5 @@ namespace :data do
     IngestFileJob.perform_now(file_path)
 
     puts "Data imported successfully"
-    puts
-
-    Ledger.journal_entries.each { puts _1.formatted_output }
   end 
 end

@@ -463,7 +463,7 @@ Doorkeeper.configure do
   #
   skip_authorization do |resource_owner, client|
     # client.superapp? or resource_owner.admin?
-    client.uid == "fake_client_id"
+    client.uid == "ledger-client-id"
   end
 
   # Configure custom constraints for the Token Introspection request.

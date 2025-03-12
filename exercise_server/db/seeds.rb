@@ -10,16 +10,19 @@
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-frontend_url = ENV["FRONTEND_ROOT_URL"] || "http://localhost:3001"
-
+# This is how we're setting up an OAuth application for development purposes.
+# The uid and secret here would normally be confidentially shared with the client applications
+# that need to authenticate with the OAuth server. For the purposes of this exercise, they are just
+# hardcoded.
 Doorkeeper::Application.find_or_create_by!(
   name: "Exercise Frontend",
-  redirect_uri: "#{frontend_url]}/api/auth/callback/exercise_server",
-  uid: "fake_client_id",
-  secret: "fake_client_secret",
+  redirect_uri: "http://localhost:3000/api/auth/callback/ledger_api",
+  uid: "ledger-client-id",
+  secret: "ledger-client-secret",
   scopes: [:read, :write]
 )
 
 User.find_or_create_by!(email: "test@test.com") do |user|
   user.password = "password"
+  user.password_confirmation = "password"
 end

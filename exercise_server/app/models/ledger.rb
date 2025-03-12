@@ -9,7 +9,7 @@ class Ledger
   # Returns a JournalEntry relation of all entries sorted by year then month.
   sig { returns(ActiveRecord::Relation) }
   def self.journal_entries
-    JournalEntry.order(year: :asc, month: :asc)
+    JournalEntry.order(year: :desc, month: :asc)
   end
 
   # Load order data from a CSV file, aggregating the debit and credits by year and month.

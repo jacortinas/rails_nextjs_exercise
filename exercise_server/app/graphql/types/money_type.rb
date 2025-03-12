@@ -1,5 +1,5 @@
 module Types
-  class MoneyType < Types::BaseObject
+  class MoneyType < GraphQL::Schema::Object
     description "An amount of money, represented as a whole number of cents in the currency's smallest unit."
 
     field :cents, Integer, null: false

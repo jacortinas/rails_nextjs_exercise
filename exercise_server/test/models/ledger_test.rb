@@ -3,7 +3,7 @@ require "test_helper"
 class LedgerTest < ActiveSupport::TestCase
   test "has journal entries sorted by year and month" do
     assert_predicate JournalEntry, :any?
-    assert_equal JournalEntry.order(year: :asc, month: :asc).to_a, Ledger.journal_entries.to_a
+    assert_equal JournalEntry.order(year: :desc, month: :asc).to_a, Ledger.journal_entries.to_a
   end
 
   test "resets all journal entries from a CSV file" do

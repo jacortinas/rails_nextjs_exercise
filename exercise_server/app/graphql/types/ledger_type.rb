@@ -1,17 +1,30 @@
 module Types
-  class LedgerType < Types::BaseObject
+  class LedgerType < GraphQL::Schema::Object
     description "A ledger of journal entries."
 
-    field :journal_entries, Types::JournalEntryType.connection_type, null: false do
-      argument :sort_by, Types::JournalEntrySortInput, required: false, default_value: { year: :asc, month: :asc }
+    field :years, Types::LedgerYearType.connection_type, "A list of years in the ledger.", null: false do
+      argument :sort_direction, Types::SortDirectionEnum, required: false, default_value: :desc
     end
 
-    def journal_entries(sort_by:)
-      if sort_by
-        object.journal_entries.reorder(sort_by.to_h)
-      else
-        object.journal_entries
-      end
+    def years(sort_direction: :desc)
+      JournalEntry.order(year: sort_direction).distinct(:year).pluck(:year)
+    end
+
+    field :year, Types::LedgerYearType, "A specific year in the ledger.", null: true do
+      argument :year, Integer, required: true
+    end
+
+    def year(year:)
+      year if JournalEntry.where(year: year).exists?
+    end
+
+    field :entry, Types::JournalEntryType, "A specific journal entry for a given year and month.", null: true do
+      argument :year, Integer, required: true
+      argument :month, Integer, required: true
+    end
+
+    def entry(year:, month:)
+      JournalEntry.find_by(year:, month:)
     end
   end
 end

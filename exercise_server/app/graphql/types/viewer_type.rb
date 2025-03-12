@@ -1,5 +1,5 @@
 module Types
-  class ViewerType < Types::BaseObject
+  class ViewerType < GraphQL::Schema::Object
     implements Types::NodeType
 
     def id

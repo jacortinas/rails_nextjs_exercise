@@ -1,20 +1,19 @@
 require "test_helper"
 
-class GraphQL::LedgerJournalEntriesTest < ActionDispatch::IntegrationTest
-  test "can query ledger.journalEntries" do
+class GraphQL::LedgerTest < ActionDispatch::IntegrationTest
+  test "can query ledger.years" do
     query = <<-GRAPHQL
       query {
         ledger {
           __typename
-          journalEntries(first: 1, sortBy: { year: DESC, month: DESC }) {
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-            edges {
-              cursor
-              node {
-                ...JournalEntryFields
+          years {
+            nodes {
+              __typename
+              year
+              entries(first: 1) {
+                nodes {
+                  ...JournalEntryFields
+                }
               }
             }
           }
@@ -26,6 +25,7 @@ class GraphQL::LedgerJournalEntriesTest < ActionDispatch::IntegrationTest
         id
         year
         month
+        monthName
         salesDebit { ...MoneyFields }
         salesCredit { ...MoneyFields }
         shippingDebit { ...MoneyFields }
@@ -41,6 +41,7 @@ class GraphQL::LedgerJournalEntriesTest < ActionDispatch::IntegrationTest
       fragment MoneyFields on Money {
         __typename
         cents
+        formatted
       }
     GRAPHQL
 
@@ -48,23 +49,17 @@ class GraphQL::LedgerJournalEntriesTest < ActionDispatch::IntegrationTest
 
     assert_nil result["errors"]
     assert_equal "Ledger", result.dig(*%w[data ledger __typename])
-    assert_equal 1, result.dig(*%w[data ledger journalEntries edges]).size
+    assert_equal 1, result.dig(*%w[data ledger years nodes]).size
 
-    assert_equal(
-      result.dig(*%w[data ledger journalEntries pageInfo endCursor]),
-      result.dig("data", "ledger", "journalEntries", "edges", 0, "cursor")
-    )
+    entry = JournalEntry.order(year: :desc, month: :asc).first
 
-    assert result.dig(*%w[data ledger journalEntries pageInfo hasNextPage])
-
-    entry = JournalEntry.order(year: :desc, month: :desc).first
-
-    entry_result = result.dig("data", "ledger", "journalEntries", "edges", 0, "node")
+    entry_result = result.dig("data", "ledger", "years", "nodes", 0, "entries", "nodes", 0)
 
     assert_equal "JournalEntry", entry_result["__typename"]
     assert_equal entry.to_gid_param, entry_result["id"]
     assert_equal entry.year, entry_result["year"]
     assert_equal entry.month, entry_result["month"]
+    assert_equal Date::MONTHNAMES[entry.month], entry_result["monthName"]
 
     # Note: I know this is a different calling format than the dig(%w[]) usage above,
     # you only save some characters when its' more than 2 entries in the array of keys to dig.
